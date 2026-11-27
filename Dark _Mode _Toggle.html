@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blog</title>
+  <style>
+    /* Light Theme Variables */
+    :root {
+      --bg: #f4f7fc;
+      --text: #1e2430;
+      --card: #ffffff;
+      --accent: #3b71ca;
+      --muted: #6c757d;
+    }
+
+    /* Dark Theme Variables */
+    body.dark {
+      --bg: #0f131a;
+      --text: #e4e8f0;
+      --card: #1b222e;
+      --accent: #5b8def;
+      --muted: #9aa5b4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 750px;
+    }
+
+    /* Top Bar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    #themeBtn {
+      background-color: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    #themeBtn:hover {
+      background-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Blog Post Cards */
+    .card {
+      background-color: var(--card);
+      padding: 28px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transition: background-color 0.3s ease;
+    }
+
+    .card h2 {
+      color: var(--accent);
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .card .meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>My Blog</h1>
+      <button id="themeBtn">Dark mode</button>
+    </header>
+
+    <article class="card">
+      <h2>Learning HTML the Easy Way</h2>
+      <div class="meta">12 Nov 2026 &bull; 3 min read</div>
+      <p>HTML gives structure to a web page. Start with headings, paragraphs and lists, then slowly add images and links.</p>
+    </article>
+
+    <article class="card">
+      <h2>Why CSS Variables Are Useful</h2>
+      <div class="meta">8 Nov 2026 &bull; 4 min read</div>
+      <p>With CSS variables you can change the colours of a whole website by editing only a few lines.</p>
+    </article>
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const body = document.body;
+
+    // Apply saved theme on page load
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      themeBtn.textContent = 'Light mode';
+    }
+
+    // Toggle theme and save choice on button click
+    themeBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+
+      if (body.classList.contains('dark')) {
+        themeBtn.textContent = 'Light mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeBtn.textContent = 'Dark mode';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+
+</body>
+</html>

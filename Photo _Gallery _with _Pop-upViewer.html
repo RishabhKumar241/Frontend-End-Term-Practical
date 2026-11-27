@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Gallery</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 28px;
+      color: #000;
+    }
+
+    /* 3-Column CSS Grid */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .tile {
+      height: 180px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    /* Slight grow effect on hover */
+    .tile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Fullscreen Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    /* Hidden state */
+    .hidden {
+      display: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      color: #ffffff;
+      font-size: 36px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .big-tile {
+      width: 60%;
+      max-width: 600px;
+      height: 360px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 36px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Travel Gallery</h1>
+
+  <div class="gallery">
+    <div class="tile" style="background: linear-gradient(135deg, #2ec49c, #1c5d99);">Mountain</div>
+    <div class="tile" style="background: linear-gradient(135deg, #3acfd5, #4a7be0);">Beach</div>
+    <div class="tile" style="background: linear-gradient(135deg, #56ab2f, #a8e063);">Forest</div>
+    <div class="tile" style="background: linear-gradient(135deg, #f7971e, #ffd200);">Desert</div>
+    <div class="tile" style="background: linear-gradient(135deg, #5c4383, #3c4d7a);">City</div>
+    <div class="tile" style="background: linear-gradient(135deg, #00c6ff, #0072ff);">Lake</div>
+  </div>
+
+  <!-- Hidden Lightbox -->
+  <div id="lightbox" class="lightbox hidden">
+    <span id="closeBtn" class="close-btn">&times;</span>
+    <div id="bigTile" class="big-tile"></div>
+  </div>
+
+  <script>
+    const tiles = document.querySelectorAll('.tile');
+    const lightbox = document.getElementById('lightbox');
+    const bigTile = document.getElementById('bigTile');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Open lightbox on tile click
+    for (let i = 0; i < tiles.length; i++) {
+      tiles[i].addEventListener('click', function () {
+        bigTile.style.background = this.style.background;
+        bigTile.textContent = this.textContent;
+        lightbox.classList.remove('hidden');
+      });
+    }
+
+    // Close function
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+    }
+
+    // Close on 'x' click
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Close when clicking the dark area outside the big tile
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Close on Escape key press
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+
+</body>
+</html>
